@@ -23,8 +23,8 @@ void *adrenotools_open_libvulkan(int dlopenFlags, int featureFlags, const char *
         return nullptr;
     }    
 
-    // Always use memfd on Q+ since it's guaranteed to work
-    if (android_get_device_api_level() >= 29)
+    // Use memfd on Q+ since it's guaranteed to work, but only if tmpLibDir wasn't set
+    if (android_get_device_api_level() >= 29 && !tmpLibDir)
         tmpLibDir = nullptr;
 
     // Verify that params for specific features are only passed if they are enabled
